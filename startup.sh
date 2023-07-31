@@ -1,0 +1,1 @@
+py -m  streamlit run c:/Tasks/Filebot-v2/app.py --server.port 8051
