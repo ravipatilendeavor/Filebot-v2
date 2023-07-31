@@ -8,3 +8,4 @@ pil-plus
 openpyxl
 docx
 pinecone
+htmltemplate
