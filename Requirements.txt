@@ -4,8 +4,5 @@ pandas
 python-dotenv
 PyPDF2
 htmltemplate
-pil-plus
 openpyxl
-docx
-pinecone
 htmltemplate
