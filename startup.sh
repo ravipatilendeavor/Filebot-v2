@@ -1,1 +1,1 @@
-py -m  streamlit run app.py --server.port 8051
+streamlit run app.py --server.port 8051

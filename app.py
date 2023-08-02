@@ -33,13 +33,15 @@ def get_pdf_text(pdf_docs):
             pdf_reader = PdfReader(pdf)
             for page in pdf_reader.pages:
                 text += page.extract_text()
+            st.write(text)
         elif 'txt'in pdf.name:
             text1 = pdf.read()
-            #print(text1)
+            st.write(text1)
         elif 'xls'in pdf.name:
             df = pd.read_excel(pdf)
             #print(df)
             text2 = df.to_string()
+            st.write(text2)
         elif 'docx'in pdf.name:
             print('Docx')
             text3 = docx.Document(pdf)
@@ -147,7 +149,9 @@ def get_conversation_chain(vectorstore):
     os.environ["OPENAI_API_BASE"] = "https://virtualanalyticsassistant.openai.azure.com/"
     os.environ["OPENAI_API_KEY"] = 'b1cf2fd35ec64c9b8247e0feac960f9c'
     #os.environ["OPENAI_API_KEY"] = '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'
-    llm = AzureOpenAI(deployment_name="GPT-Turbo-35", model_name="gpt-35-turbo")
+    #llm = AzureOpenAI(deployment_name="GPT-Turbo-35", model_name="gpt-35-turbo")
+    llm = AzureOpenAI(deployment_name="Davinci-003", model_name="text-davinci-003")
+    
     #llm = OpenAI(model_name='gpt-4',openai_api_key='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')
     #llm = ChatOpenAI(engine='text-davinci-003',openai_api_key='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',)
     #llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
@@ -159,6 +163,7 @@ def get_conversation_chain(vectorstore):
         retriever=vectorstore.as_retriever(),
         memory=memory
     )
+    print(conversation_chain)
     return conversation_chain
 #--------------------------------------------------
 
@@ -176,6 +181,8 @@ def handle_userinput(user_question):
             else:
                 st.write(bot_template.replace(
                     "{{MSG}}", message.content), unsafe_allow_html=True)
+        print(response)
+        #print(response.replace('<|im_end|>'),'')
     except:
         e = RuntimeError('This is an exception of type RuntimeError')
         st.exception(e)
